@@ -94,3 +94,7 @@ nav {
     width: 180px;
     height: 25px;
 }
+
+#map {
+    height: 100%;
+  }

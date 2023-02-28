@@ -1,17 +1,118 @@
-const center = { lat: 50.064192, lng: -130.605469 };
-// Create a bounding box with sides ~10km away from the center point
-const defaultBounds = {
-  north: center.lat + 0.1,
-  south: center.lat - 0.1,
-  east: center.lng + 0.1,
-  west: center.lng - 0.1,
-};
-const input = document.getElementById("c_address");
-const options = {
-  bounds: defaultBounds,
-  componentRestrictions: { country: "uk" },
-  fields: ["address_components", "geometry", "icon", "name"],
-  strictBounds: false,
-  types: ["establishment"],
-};
-const autocomplete = new google.maps.places.Autocomplete(input, options);
+// This example requires the Places library. Include the libraries=places
+// parameter when you first load the API. For example:
+
+
+function initMap() {
+  const map = new google.maps.Map(document.getElementById("map"), {
+    mapTypeControl: false,
+    center: { lat: -33.8688, lng: 151.2195 },
+    zoom: 13,
+  });
+
+  new AutocompleteDirectionsHandler(map);
+}
+
+class AutocompleteDirectionsHandler {
+  map;
+  originPlaceId;
+  destinationPlaceId;
+  travelMode;
+  directionsService;
+  directionsRenderer;
+  constructor(map) {
+    this.map = map;
+    this.originPlaceId = "";
+    this.destinationPlaceId = "";
+    this.travelMode = google.maps.TravelMode.WALKING;
+    this.directionsService = new google.maps.DirectionsService();
+    this.directionsRenderer = new google.maps.DirectionsRenderer();
+    this.directionsRenderer.setMap(map);
+
+    const originInput = document.getElementById("c_address");
+    const destinationInput = document.getElementById("d_address");
+    const modeSelector = "Driving";
+    // Specify just the place data fields that you need.
+    const originAutocomplete = new google.maps.places.Autocomplete(
+      originInput,
+      { fields: ["place_id"] }
+    );
+    // Specify just the place data fields that you need.
+    const destinationAutocomplete = new google.maps.places.Autocomplete(
+      destinationInput,
+      { fields: ["place_id"] }
+    );
+
+    this.setupClickListener(
+      "changemode-walking",
+      google.maps.TravelMode.WALKING
+    );
+    this.setupClickListener(
+      "changemode-transit",
+      google.maps.TravelMode.TRANSIT
+    );
+    this.setupClickListener(
+      "changemode-driving",
+      google.maps.TravelMode.DRIVING
+    );
+    this.setupPlaceChangedListener(originAutocomplete, "ORIG");
+    this.setupPlaceChangedListener(destinationAutocomplete, "DEST");
+    this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(originInput);
+    this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(
+      destinationInput
+    );
+    this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(modeSelector);
+  }
+  // Sets a listener on a radio button to change the filter type on Places
+  // Autocomplete.
+  setupClickListener(id, mode) {
+    const radioButton = document.getElementById(id);
+
+    radioButton.addEventListener("click", () => {
+      this.travelMode = mode;
+      this.route();
+    });
+  }
+  setupPlaceChangedListener(autocomplete, mode) {
+    autocomplete.bindTo("bounds", this.map);
+    autocomplete.addListener("place_changed", () => {
+      const place = autocomplete.getPlace();
+
+      if (!place.place_id) {
+        window.alert("Please select an option from the dropdown list.");
+        return;
+      }
+
+      if (mode === "ORIG") {
+        this.originPlaceId = place.place_id;
+      } else {
+        this.destinationPlaceId = place.place_id;
+      }
+
+      this.route();
+    });
+  }
+  route() {
+    if (!this.originPlaceId || !this.destinationPlaceId) {
+      return;
+    }
+
+    const me = this;
+
+    this.directionsService.route(
+      {
+        origin: { placeId: this.originPlaceId },
+        destination: { placeId: this.destinationPlaceId },
+        travelMode: this.travelMode,
+      },
+      (response, status) => {
+        if (status === "OK") {
+          me.directionsRenderer.setDirections(response);
+        } else {
+          window.alert("Directions request failed due to " + status);
+        }
+      }
+    );
+  }
+}
+
+window.initMap = initMap;
