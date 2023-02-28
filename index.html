@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3EpH_qEvehNCmXy0jdd4OKHhSuH6kBFE&libraries=places"></script>
+    <title>Holdem Quote</title>
+</head>
+<body>
+    <header>
+      <div class="logo"><a href="#"><img src="/assets/movepack-200x200.png" width="100px" height="100px"></a></div>
+      <nav>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Quote</a></li>
+          <li><a href="#">Print Pdf</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <div><h1>Here is the Control Room</h1></div>
+      <section id="control"> 
+        <div><h2>Customer Details</h2></div>
+        <div class="grid">
+          <div>
+            <label name="First_Name">First Name</label>
+            <input type="text" name="First_Name" id="f_name">
+            <script src="/app.js"></script>
+          </div>
+          <div>
+            <label name="Last_Name">Last Name</label>
+            <input type="text" name="Last_Name" id="l_name">
+          </div>
+          <div>
+            <label name="phone">Phone</label>
+            <input type="text" name="phone" id="phone">
+          </div>
+          <div>
+            <label name="email">email</label>
+            <input type="text" name="email" id="email">
+          </div>
+      </div>
+      <div><h2>Move Param</h2></div>
+      <div class="grid">
+        <div>
+          <label name="collection_address">Collection Address</label>
+          <input type="text" name="collection_address" id="c_address">
+        </div>
+        <div>
+          <label name="delivery_address">Delivery Address</label>
+          <input type="text" name="delivery_address" id="d_address">
+        </div>
+        <div>
+          <label name="volume">Volume</label>
+          <input type="text" name="volume" id="volume">
+        </div>
+        <div>
+          <label name="move_date">Moving Date</label>
+          <input type="date" name="move_date" id="move_date">
+        </div>
+    </div>
+      </section>
+      <section id="control"> 
+        <div><h2>Packing Service</h2></div>
+        <div class="grid">
+          <div>
+            <label name="packing_yes">Yes</label>
+            <input type="radio" name="packing" id="packing_yes" value="yes">
+          </div>
+          <div>
+            <label name="packing_no">No</label>
+            <input type="radio" name="packing" id="packing_no" value="no">
+          </div>
+          <div>
+            <label name="no_boxes">Number of Boxes</label>
+            <input type="number" name="no_boxes" id="no_boxes">
+          </div>
+          <div>
+            <label name="no_wd">No of Wardrobe Boxes</label>
+            <input type="number" name="no_wd" id="no_wd">
+          </div>
+      </div>
+      <div><h2>Move Param 2</h2></div>
+      <div class="grid">
+        <div>
+          <label name="no_vans">Number of Vans</label>
+          <input type="text" name="no_vans" id="no_vans">
+        </div>
+        <div>
+          <label name="dis_service">D/R Service</label>
+          <input type="text" name="dis_service" id="dis_service">
+        </div>
+        <div>
+          <label name="quote_date">Quote Start Date</label>
+          <input type="date" name="quote_date" id="quote_date">
+        </div>
+        <div>
+          <label name="exp_date">Quote Expiry Date</label>
+          <input type="date" name="exp_date" id="exp_date">
+        </div>
+    </div>
+      </section>
+      <section id="outcome">
+        <form action="" id="mform">
+          <div class="container">
+              <div class="row">
+                  <!--Address Section-->
+                  <div id="pac-container">
+                      <input id="location-input" type="text" placeholder="Enter a location" />
+                    </div>
+                  <!--End of Address Section-->
+                  <!--Form Submit Section-->
+                  <div class="row fill-form">
+                      <input name="submit" type="submit" id="submit" class="submit" value="Submit">
+                  </div>
+                  <!--End of Form Submit Section-->
+              </div>
+          </div>
+          <script src="app.js"></script>
+          <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+      </form>
+      </section>
+    </main>
+</body>
+</html>
