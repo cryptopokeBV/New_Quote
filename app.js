@@ -15,8 +15,3 @@ function initMap() {
       }
     });
 }
-
-
-const testJava = document.getElementById('l_name').innerHTML;
-
-console.log(testJava);
