@@ -1,6 +1,9 @@
 // This example requires the Places library. Include the libraries=places
 // parameter when you first load the API. For example:
+<script
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3EpH_qEvehNCmXy0jdd4OKHhSuH6kBFE&libraries=places" defer>
 
+</script>
 
 function initMap() {
   const map = new google.maps.Map(document.getElementById("map"), {
